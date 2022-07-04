@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  chat1:
+    image: discovery
+    ports:
+      - "5001:4000"
+    volumes: &common-volumes
+      - /opt/app/assets
+      - /opt/app/deps
+      - .:/opt/app
+    environment:
+      MIX_ENV: 'dev'
+      SNAME: chat1
