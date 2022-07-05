@@ -7,15 +7,22 @@ defmodule Discovery.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = [
+      chat: [
+        strategy: Cluster.Strategy.Gossip
+      ]
+    ]
+
     children = [
       # Start the Telemetry supervisor
       DiscoveryWeb.Telemetry,
       # Start the PubSub system
       {Phoenix.PubSub, name: Discovery.PubSub},
       # Start the Endpoint (http/https)
-      DiscoveryWeb.Endpoint
+      DiscoveryWeb.Endpoint,
       # Start a worker by calling: Discovery.Worker.start_link(arg)
       # {Discovery.Worker, arg}
+      {Cluster.Supervisor, [topologies, [name: Discovery.ClusterSupervisor]]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
