@@ -1,0 +1,25 @@
+<div>
+    <strong>Current node:</strong> <%=@node%>
+</div>
+
+<div>
+    <strong>Other nodes:</strong>
+    <ul>
+        <%= for node <- @nodes do %>
+            <li><%= node %></li>
+        <% end %>
+    </ul>
+</div>
+
+<div>
+  <div class="messages" style="border: 1px solid #eee; height: 400px; overflow: scroll; margin-bottom: 8px;">
+    <%= for message <- @messages do %>
+      <p style="margin: 2px;"><b><%= message.sender %></b>: <%= message.text %></p>
+    <% end %>
+  </div>
+  <form phx-submit="send">
+    <input type="text" style="width: 25%" name="recipient" placeholder="Recipient" />
+    <input type="text" style="width: 50%" name="message" placeholder="Message" />
+    <button type="submit" style="width: 23%">Send</button>
+  </form>
+</div>
